@@ -28,11 +28,11 @@ if file is not None:
     st.markdown("### Daily Totals")
     daily_total = df.groupby(df['Time'].dt.date).sum()
     fig = px.bar(daily_total, y="Volume")
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     rolling_24 = df.set_index("Time").rolling('24h').sum()
     fig = px.line(rolling_24)
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
     fig = go.Figure()
@@ -42,11 +42,11 @@ if file is not None:
     fig.add_trace(
         go.Line(x=rolling_24.index, y=rolling_24.Volume)
     )
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     rolling_24_mean = rolling_24.rolling('7d', min_periods=1).mean()
     fig = px.line(rolling_24_mean)
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
