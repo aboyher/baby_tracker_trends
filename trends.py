@@ -21,8 +21,11 @@ if file is not None:
     df.fillna("", inplace=True)
     if "Amount (ml)" in df.columns:
         df.rename(columns={"Amount (ml)": "Amount"}, inplace=True)
-    df['Volume'] = df['Amount'].apply(lambda x: int(x.split()[0]))
-    df['Unit'] = df['Amount'].apply(lambda x: x.split()[-1])
+        df['Unit'] = "ml"
+        df['Volume'] = df['Amount']
+    else:
+        df['Volume'] = df['Amount'].apply(lambda x: int(x.split()[0]))
+        df['Unit'] = df['Amount'].apply(lambda x: x.split()[-1])
     df['Time'] = pd.to_datetime(df['Time'])
     df = df.sort_values("Time")
     st.write(df)
